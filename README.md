@@ -7,7 +7,7 @@ Criação do arquivo index.php e formulário de login.
 
 ##aula02 - 19/07/2019
 
-:rockte: :full_moon: 50 anos do homem na Lua :rockte: :full_moon:
+:rockt: :full_moon: 50 anos do homem na Lua :rockt: :full_moon:
 .Formulário de cadastro de novo usuário
 .Formulario de recuperação de senha
 .Formulário mostrar e ocultar formulários com jQuery
