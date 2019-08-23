@@ -17,17 +17,28 @@ if (
         $nomeUsuario = verificar_entrada($_POST['nomeUsuário']);
         $emailUsuario = verificar_entrada($_POST['emailUsuário']);
         $senhaUsuario = verificar_entrada($_POST['senhaUsuário']);
-        $senhaConfirma = verificar_entrada($_POST['senhaComfirma']);
+        $senhaConfirma = verificar_entrada($_POST['senhaConfirma']);
         $concordar = $_POST['concordar'];
         $dataCriacao = date("y-m-d H:i:s");
 
         echo "<h5>Nome completo: $nomeCompleto</h5>";
-        cho "<h5>Nome suário: $nomesuario</h5>";
-        cho "<h5>E-mail Usuário: $emailUsuario</h5>";
-        cho "<h5>Senha Usuário: $senhaUsuario</h5>";
-        cho "<h5>Senha Confirma: $senhaConfirma</h5>";
-        cho "<h5>Concordar: $Concordar</h5>";
-        cho "<h5>Data de Criação: $dataCriaçao</h5>";
+        echo "<h5>Nome usuário: $nomeUsuario</h5>";
+        echo "<h5>E-mail Usuário: $emailUsuario</h5>";
+        echo "<h5>Senha Usuário: $senhaUsuario</h5>";
+        echo "<h5>Senha Confirma: $senhaConfirma</h5>";
+        echo "<h5>concordar: $concordar</h5>";
+        echo "<h5>Data de Criação: $dataCriacao</h5>";
+
+    //Hash de senha / codificação de senha em 40 caracteres
+        $senha = sha1($senhaUsuario);
+        $senhaC = sha1($senhaConfirma);
+
+        if($senha != $senhaC){
+            echo "<h1>As senhas não conferem</h1>";
+            exit();
+        }else {
+            echo "<h5> senha codificada: $senha</h5>";
+        }
 
 
 } else {

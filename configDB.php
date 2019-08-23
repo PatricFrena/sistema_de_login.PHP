@@ -14,3 +14,5 @@ if($conecta->connect_error){
 }else {
     //echo "<h1>Conectou no BD Manowwwww!</h1>";
 }
+
+
