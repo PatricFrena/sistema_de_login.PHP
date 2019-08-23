@@ -1,14 +1,35 @@
-😀
 <?php
-/**
- * Back-end
- *  aulao4 - Recepeção de dados no back-end
- */
+
+//É necessário fazer a conexão com o Banco de Dados 
+require_once "configDB.php";
+
+function verificar_entrada($entrada){
+    $saida = trim($entrada); //Remova espaços antes e depois
+    $saida = stripslashes($saida);//remove as barras
+    $saida = htmlspecialchars($saida);
+    return $saida;
+}
+
+if (
+    isset($_POST['action']) &&
+    $_POST['action'] == 'cadastro') {
+        $nomeCompleto = verificar_entrada($_POST['nomeCompleto']);
+        $nomeUsuario = verificar_entrada($_POST['nomeUsuário']);
+        $emailUsuario = verificar_entrada($_POST['emailUsuário']);
+        $senhaUsuario = verificar_entrada($_POST['senhaUsuário']);
+        $senhaConfirma = verificar_entrada($_POST['senhaComfirma']);
+        $concordar = $_POST['concordar'];
+        $dataCriacao = date("y-m-d H:i:s");
+
+        echo "<h5>Nome completo: $nomeCompleto</h5>";
+        cho "<h5>Nome suário: $nomesuario</h5>";
+        cho "<h5>E-mail Usuário: $emailUsuario</h5>";
+        cho "<h5>Senha Usuário: $senhaUsuario</h5>";
+        cho "<h5>Senha Confirma: $senhaConfirma</h5>";
+        cho "<h5>Concordar: $Concordar</h5>";
+        cho "<h5>Data de Criação: $dataCriaçao</h5>";
 
 
-echo "<pre>\n";
-print_r($_POST);
-echo "</pre>\n";
-print("Alo Ha!");
-
-
+} else {
+    echo "<h1 'style = color: red'> Está página não pode ser acessado diretamente</h1>";
+}
