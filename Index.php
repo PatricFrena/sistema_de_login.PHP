@@ -189,7 +189,7 @@
                     $.ajax({
                         url: 'recebe.php',
                         method: 'post',
-                        data: $('#formCadastro').serialize()+'&action=cadastro',
+                        data: $('#formCadastro').serialize() + '&action=cadastro',
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
