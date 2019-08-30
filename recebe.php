@@ -21,13 +21,6 @@ if (
         $concordar = $_POST['concordar'];
         $dataCriacao = date("y-m-d H:i:s");
 
-        echo "<h5>Nome completo: $nomeCompleto</h5>";
-        echo "<h5>Nome usuário: $nomeUsuario</h5>";
-        echo "<h5>E-mail Usuário: $emailUsuario</h5>";
-        echo "<h5>Senha Usuário: $senhaUsuario</h5>";
-        echo "<h5>Senha Confirma: $senhaConfirma</h5>";
-        echo "<h5>concordar: $concordar</h5>";
-        echo "<h5>Data de Criação: $dataCriacao</h5>";
 
     //Hash de senha / codificação de senha em 40 caracteres
         $senha = sha1($senhaUsuario);
@@ -37,10 +30,28 @@ if (
             echo "<h1>As senhas não conferem</h1>";
             exit();
         }else {
-            echo "<h5> senha codificada: $senha</h5>";
+            //echo "<h5> senha codificada: $senha</h5>";
+            //Verificar se o usuário já existe no banco de dados
+            $sql = $conecta->prepare("SELECT nomeUsuario, email FROM usuario WHERE nomeUsuario = ? OR email = ?");
+            $sql->bind_param("ss",$nomeUsuario, $emailUsuario);
+            $sql->execute();
+            $resultado = $sql->get_result();
+            $linha = $resultado->fetch_array(MYSQLI_ASSOC);
+            if ($linha['nomeUsuario'] == $nomeUsuario){
+                echo "<p>Nome de Usuario indisponível, tente outro</p>";
+            }elseif ($linha['email'] == $emailUsuario) {
+                echo "<p>E-mail já em uso, tente outro</p>";
+            }else {
+                $sql = $conecta->prepare("INSERT into usuario (nome, nomeUsuario, email, senha, dataCriacao)values(?, ?, ?, ?, ?)");
+                $sql->bind_param("sssss",$nomeCompleto, $nomeUsuario, $emailUsuario, $senha, $dataCriacao);
+                if($sql->execute()){
+                    echo "<p>Registra com sucesso</p>";
+                }else {
+                    echo "<p>Algo deu errado. Tente outra vez.</p>";
+                }
+            }
         }
 
-
-} else {
-    echo "<h1 'style = color: red'> Está página não pode ser acessado diretamente</h1>";
-}
+    } else {
+        echo "<h1 'style = color: red'> Está página não pode ser acessado diretamente</h1>";
+    }
