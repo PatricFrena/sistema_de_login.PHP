@@ -176,6 +176,10 @@
                         success: function(resposta) {
                             $('#alerta').show();
                             $('#resultado').html(resposta);
+                            if(resposta = "ok"){
+                                //Redicionamento
+                                window.location = "profile.php";
+                            }
                         }
                     });
                 }
