@@ -116,7 +116,7 @@ if (isset($_SESSION['nomeUsuario']))
 
                     <div class="form-group">
                         <h5>imagem de perfil</h5>
-                        <input type="text" name="avatar" id="avatar" class="form-control" placeholder="url Aqui!" required>
+                        <input type="text" name="imagem" id="imagem" class="form-control" placeholder="url Aqui!" required>
                     </div>
 
                     <div class="form-group">

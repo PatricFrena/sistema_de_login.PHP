@@ -41,8 +41,10 @@ if(isset($_POST['action']) &&
         $emailUsuario = verificar_entrada($_POST['emailUsuário']);
         $senhaUsuario = verificar_entrada($_POST['senhaUsuário']);
         $senhaConfirma = verificar_entrada($_POST['senhaConfirma']);
+        $imagem = verificar_entrada($_POST['imagem']);
         $concordar = $_POST['concordar'];
         $dataCriacao = date("y-m-d H:i:s");
+    
 
 
     //Hash de senha / codificação de senha em 40 caracteres
@@ -65,8 +67,8 @@ if(isset($_POST['action']) &&
             }elseif ($linha['email'] == $emailUsuario) {
                 echo "<p>E-mail já em uso, tente outro</p>";
             }else {
-                $sql = $conecta->prepare("INSERT into usuario (nome, nomeUsuario, email, senha, dataCriacao)values(?, ?, ?, ?, ?)");
-                $sql->bind_param("sssss",$nomeCompleto, $nomeUsuario, $emailUsuario, $senha, $dataCriacao);
+                $sql = $conecta->prepare("INSERT into usuario (nome, nomeUsuario, email, senha, dataCriacao, imagem)values(?, ?, ?, ?, ?, ?)");
+                $sql->bind_param("ssssss",$nomeCompleto, $nomeUsuario, $emailUsuario, $senha, $dataCriacao, $imagem);
                 if($sql->execute()){
                     echo "<p>Registra com sucesso</p>";
                 }else {
@@ -78,3 +80,7 @@ if(isset($_POST['action']) &&
     } else {
         echo "<h1 'style = color: red'> Está página não pode ser acessado diretamente</h1>";
     }
+function data($data)
+{
+    return date("d/m/Y", strtotime($data));
+}
