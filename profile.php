@@ -49,11 +49,11 @@ require_once 'session.php'
     </nav>
 
 <main class="container mt-4">   
-</div>>
+</div>
     <div class="row no-gutters">
         <div class="col-6 col-md-4">
             <div id="imagem">
-                <img src="<?= $imagem ?>"style="width:400px; height:400px;">
+                <img src="<?= $imagem ?>"style="width:200px; height:200px;">
             </div>
         </div>
         <div class="col-12 col-sm-6 col-md-8">
