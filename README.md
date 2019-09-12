@@ -1,6 +1,14 @@
 # sistema_de_login_AIPR2019v1
 Sistema de Login com registro de novo usuário e recuperação de senha
 
+## aula 08 - 12/09/2019
+Desafio Carrossel de Imagens protegido por Login, aarquivo slider.php
+
+Preparação para geração de nova senha, página e alterações no Banco de dados.
+
+## aula 07 - 10/09/2019
+Na tarde de 09/09 os alunos visitaram a Havan Liberty.
+
 ## aula CÊXXX - 30/08/2019
 ùltima sexta-feira de agosto de 2019!
 Cadastro de usuários.
