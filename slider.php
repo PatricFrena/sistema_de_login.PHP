@@ -22,14 +22,8 @@ require_once 'session.php'
         body {
             background-color: Black;
         }
-
-        html {
-            font-size: 10px;
-        }
-
+        
         body {
-            padding: 2rem;
-
             background-color: rgb(red);
 
             font-size: 16px;
@@ -103,7 +97,7 @@ require_once 'session.php'
                         <img src="imagens/fortnite.jpg" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Equipe</h5>
-                            <p>Modo Jatpack.</p>
+                            <p>Novo veículo Avião.</p>
                         </div>
                     </div>
                     <div class="carousel-item">
