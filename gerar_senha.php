@@ -1,20 +1,31 @@
 <?php
-require_once 'configDB.php';//Conexão com o Banco de Dados
-if(isset($_GET['token']) && strlen($_GET['token']) == 10){
+require_once 'configDB.php';
+if (isset($_GET['token']) && strlen($_GET['token']) == 10) {
     $token = $_GET['token'];
-    $sql = $conecta->prepare("SELECT * from usuario WHERE
-    token - ? AND tempo_de_vida > now()");
+    $sql = $conecta->prepare("SELECT * from usuario WHERE token = ? AND tempo_de_vida > now()");
     $sql->bind_param("s", $token);
     $sql->execute();
     $resultado = $sql->get_result();
-    if($resultado->num_rowa > 0){
-        echo "<h1>Pronto para alterar a senha</h1>";
-    }else{
+    if ($resultado->num_rows > 0) {
+        //echo "Nova senha:". @$_POST[senha];
+        //Salvar a nova senha no banco de dados
+        if (isset($_POST['senha'])) {
+            $nova_senha = sha1($_POST['senha']);
+            $confirma_senha = sha1($_POST['csenha']);
+            if($nova_senha == $confirma_senha){
+                $sql = $conecta->prepare("UPDATE usuario SET senha = ? WHERE token = ?");
+                $sql->bind_param("ss",$nova_senha,$token);
+                $sql = "Senha alterada com sucesso";
+            }else{
+                $msg = "As senhas não são iguais";
+            }
+        }
+    } else {
         header('location: index.php');
         exit();
     }
-}else {
-    header('location:index.php');
+} else { //Sem token ou token diferente de 10 caracteres
+    header('location:index.php'); //Kick da página,
     exit();
 }
 ?>
@@ -34,31 +45,31 @@ if(isset($_GET['token']) && strlen($_GET['token']) == 10){
 
 <body>
 
-<main class="container">
-    <section class="row justify-content-center">
-        <div class="col-lg-5 mt-5">
-            <h3 class="text-center bg-dark text-light p-2 rounded">Crie uma nova senha</h3>
-            <h4 class="text-center">
-                <?= @$msg ?>
-            </h4>
-            <form action="" method="post">
-                <div class="form-group">
-                    <label for="senha">Nova Senha</label>
-                    <input type="password" name="senha" id="senha" class="form-control" placeholder="Nova Senha" Required>
-                </div>
-                <div class="form-group">
-                    <label for="csenha">
-                        Confirme a senha
-                    </label>
-                    <input type="password" name="senha" id="senha" class="form-control" placeholder="Nova senha" Required>
-                </div>
-                <div class="fort-group">
-                <input type="submit" value=":: Criar nova Senha ::" name="criar" class="btn btn-primary btn-block" style="background: purple; color: white; font-weight: bolder; padding: 15px; font-size: 22px;">
-                </div>
-            </form>
-        </div>
-    </section>
-</main>
+    <main class="container">
+        <section class="row justify-content-center">
+            <div class="col-lg-5 mt-5">
+                <h3 class="text-center bg-dark text-light p-2 rounded">Crie uma nova senha</h3>
+                <h4 class="text-center">
+                    <?= @$msg ?>
+                </h4>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="senha">Nova Senha</label>
+                        <input type="password" name="senha" id="senha" class="form-control" placeholder="Nova Senha" Required>
+                    </div>
+                    <div class="form-group">
+                        <label for="csenha">
+                            Confirme a senha
+                        </label>
+                        <input type="password" name="senha" id="senha" class="form-control" placeholder="Nova senha" Required>
+                    </div>
+                    <div class="fort-group">
+                        <input type="submit" value=":: Criar nova Senha ::" name="criar" class="btn btn-primary btn-block" style="background: purple; color: white; font-weight: bolder; padding: 15px; font-size: 22px;">
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
