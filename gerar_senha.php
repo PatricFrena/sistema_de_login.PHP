@@ -1,3 +1,23 @@
+<?php
+require_once 'configDB.php';//Conexão com o Banco de Dados
+if(isset($_GET['token']) && strlen($_GET['token']) == 10){
+    $token = $_GET['token'];
+    $sql = $conecta->prepare("SELECT * from usuario WHERE
+    token - ? AND tempo_de_vida > now()");
+    $sql->bind_param("s", $token);
+    $sql->execute();
+    $resultado = $sql->get_result();
+    if($resultado->num_rowa > 0){
+        echo "<h1>Pronto para alterar a senha</h1>";
+    }else{
+        header('location: index.php');
+        exit();
+    }
+}else {
+    header('location:index.php');
+    exit();
+}
+?>
 <!doctype html>
 <html lang="pt-br">
 
